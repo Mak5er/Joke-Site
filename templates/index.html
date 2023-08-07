@@ -112,7 +112,7 @@
         <h1>Анекдоти українською</h1>
     </div>
     <div class="joke-container">
-        {{ random_joke | replace('\n', '<br>') | truncate(150) | safe }}
+        {{ random_joke | replace('\n', '<br>') | safe }}
     </div>
     <button class="random-button">Новий анекдот</button>
     <div class="qr-container">
