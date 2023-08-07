@@ -38,4 +38,4 @@ def get_random_joke_ajax():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
