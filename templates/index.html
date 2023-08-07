@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+    <title>Анекдоти</title>
+    <style>
+        /* Спільні стилі для всіх розмірів екрану */
+        body {
+            background-color: {{ background_color }};
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+        .header {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .qr-container {
+            font-size: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .joke-container {
+            display: inline-block;
+            text-align: left;
+            padding: 30px;
+            border: 2px solid {{ primary_color }};
+            border-radius: 10px;
+            word-wrap: break-word;
+            font-size: 20px;
+        }
+        .random-button {
+            display: block;
+            margin: 20px auto;
+            background-color: {{ primary_color }};
+            color: {{ background_color }};
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        .qr-code {
+            border-radius: 24px;
+            text-align: center;
+            width: 400px;
+        }
+        .telegram-link {
+            color: #3bd671;
+            text-decoration: none;
+        }
+        .scan-notice {
+            font-size: 20px;
+            color: gray;
+            margin-top: 10px;
+        }
+
+        /* Стилі для мобільних пристроїв */
+        @media screen and (max-width: 1500px) {
+            .joke-container {
+                font-size: 40px;
+            }
+            .random-button {
+                font-size: 36px;
+                padding: 30px 60px;
+            }
+            .qr-container {
+                font-size: 40px;
+            }
+            .header {
+                font-size: 40px;
+            }
+            .qr-code {
+                width: 800px
+            }
+            .scan-notice {
+                font-size: 40px
+            }
+
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $(".random-button").click(function() {
+                $.ajax({
+                    type: "POST",
+                    url: "/get_random_joke",
+                    success: function(data) {
+                        $(".joke-container").html(data);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>Анекдоти українською</h1>
+    </div>
+    <div class="joke-container">
+        {{ random_joke | replace('\n', '<br>') | truncate(150) | safe }}
+    </div>
+    <button class="random-button">Новий анекдот</button>
+    <div class="qr-container">
+        <h2>Бажаєте більше анекдотів?<br> Тоді <a class="telegram-link"
+                                                  href="https://t.me/makser_humor_bot?start=start" target="_blank">переходьте
+            до
+            телеграм бота</a>!</h2>
+        <p class="scan-notice">Проскануйте або натисніть на QR-код</p>
+        <a href="https://t.me/makser_humor_bot?start=start" target="_blank"><img class="qr-code"
+                                                                                 src="{{ url_for('static', filename='qr-code.png') }}"
+                                                                                 alt="QR Code"></a>
+    </div>
+</div>
+</body>
+</html>
