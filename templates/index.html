@@ -94,7 +94,7 @@
                 margin-top: 15px;
             }
             .qr-code {
-                width: 100%;
+                width: 95%;
                 max-width: 400px;
                 height: 95%;
                 max-height: 400px;
@@ -132,8 +132,12 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $(".random-button").click(function() {
+    var lastClickTime = 0;
+$(document).ready(function() {
+    $(".random-button").click(function() {
+        var currentTime = new Date().getTime();
+        if (currentTime - lastClickTime >= 1000) { // Перевірка, чи пройшов 1 секунд після останнього натискання
+            lastClickTime = currentTime; // Оновлюємо час останнього натискання
             $.ajax({
                 type: "POST",
                 url: "/get_random_joke",
@@ -141,7 +145,8 @@
                     $(".joke-container").html(data);
                 }
             });
-        });
+        }
     });
+});
 </script>
 </html>
