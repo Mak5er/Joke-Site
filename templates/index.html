@@ -77,19 +77,22 @@
     });
 </script>
 <script>
-    // Відкриття модального вікна
+    // Відкриття модального вікна з анімацією
     function openModal() {
-      var modal = document.getElementById('myModal');
-      modal.style.display = 'block';
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'block';
     }
 
-    // Закриття модального вікна
+    // Закриття модального вікна з анімацією
     function closeModal() {
         var modal = document.getElementById('myModal');
-        modal.style.display = 'none';
-        var ideaInput = document.getElementById("ideaInput");
-        modal.style.display = "none";
-        ideaInput.value = "";
+        modal.classList.add('fade-out'); // Додайте клас для анімації зникання
+        setTimeout(function() {
+            modal.style.display = 'none';
+            modal.classList.remove('fade-out'); // Видаліть клас після анімації
+            var ideaInput = document.getElementById("ideaInput");
+            ideaInput.value = "";
+        }, 300); // Час анімації (300 мс)
     }
 
     // Відправка ідеї
