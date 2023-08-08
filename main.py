@@ -2,11 +2,11 @@ import os
 import random
 import sqlite3
 import time
-from dotenv import load_dotenv
 
 import requests
+from urllib.parse import quote
+from dotenv import load_dotenv
 from flask import Flask, render_template, jsonify, request
-
 
 app = Flask(__name__)
 
@@ -15,8 +15,8 @@ load_dotenv()
 bot_api_url = os.getenv("bot_api_url")
 chat_id = os.getenv("chat_id")
 
-# Конфігурація основних кольорів
 
+# Конфігурація основних кольорів
 
 
 # Функція для отримання рандомного анекдоту з бази даних
@@ -58,8 +58,10 @@ def get_random_joke_ajax():
 @app.route('/send_idea', methods=['POST'])
 def send_idea():
     idea = request.form['idea']
-    message = f'/sendMessage?chat_id={chat_id}&text=*Нова ідея*: \n`{idea}`&parse_mode=Markdown'
-    requests.get(bot_api_url + message)
+    encoded_idea = quote(idea)
+    message = f'/sendMessage?chat_id={chat_id}&text=*Нова ідея*: \n `{encoded_idea}`&parse_mode=MarkdownV2'
+    response = requests.get(bot_api_url + message)
+    print(response.json())
     return 'Idea sent!'
 
 
