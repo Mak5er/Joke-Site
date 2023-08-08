@@ -5,7 +5,7 @@
     <meta name="viewport">
     <meta name="author" content="Mak5er">
     <meta name="description"
-          content="Анекдоти українською - це сайт з анекдотами українською мовою. Отримайте вашу дозу гумору з смішними анекдотами. Натисніть кнопку для відображення нового анекдоту або переходьте до телеграм бота де ще більше розваг.">
+          content="Анекдоти - це сайт з анекдотами українською мовою. Отримайте вашу дозу гумору з смішними анекдотами. Натисніть кнопку для відображення нового анекдоту або переходьте до телеграм бота де ще більше розваг.">
     <meta name="keywords"
           content="анекдоти, гумор, рандом, сайт анекдотів, рандомний анекдот, анекдот дня, анекдоти, україна, анекдоти по українськи, fytrljnb erhf]ycmrj., fytrljnb, cvs[, cvsiys erhf]ycmrs fytrljnb, ">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
@@ -91,20 +91,7 @@
         }
     </style>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $(".random-button").click(function() {
-                $.ajax({
-                    type: "POST",
-                    url: "/get_random_joke",
-                    success: function(data) {
-                        $(".joke-container").html(data);
-                    }
-                });
-            });
-        });
-    </script>
+
 </head>
 <body>
 <div class="container">
@@ -122,9 +109,23 @@
             телеграм бота</a>!</h2>
         <p class="scan-notice">Проскануйте або натисніть на QR-код</p>
         <a href="https://t.me/makser_humor_bot?start=start" target="_blank"><img class="qr-code"
-                                                                                 src="{{ url_for('static', filename='qr-code.png') }}"
+                                                                                 src="{{ url_for('static', filename='qr-code.webp') }}"
                                                                                  alt="QR Code"></a>
     </div>
 </div>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".random-button").click(function() {
+            $.ajax({
+                type: "POST",
+                url: "/get_random_joke",
+                success: function(data) {
+                    $(".joke-container").html(data);
+                }
+            });
+        });
+    });
+</script>
 </html>
