@@ -128,23 +128,36 @@ body {
   cursor: pointer;
 }
 
-/* Стилі для поля вводу */
 .input-container {
-  margin-bottom: 10px;
-  margin-right: 20px;
-
+    position: relative;
+    margin-bottom: 10px;
+    margin-right: 20px;
 }
 
 #ideaInput {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  background-color: #131a26;
-  color: white;
-  font-size: 16px;
-  border-radius: 5px;
-  outline: none;
-  resize: none;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: #131a26;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+}
+
+.clear-icon {
+    position: absolute;
+    top: 50%;
+    right: 0px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 28px;
+    color: #3bd671;
+}
+
+.clear-icon:hover {
+    color: #fff;
 }
 
 /* Стилі для кнопки */
@@ -161,6 +174,19 @@ body {
 
 .modal-button:hover {
   background-color: #2aaf5c;
+}
+
+.button-container {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.cancel-button {
+    background-color: #d9534f;
+}
+
+.cancel-button:hover {
+    background-color: #c9302c;
 }
 
 @media screen and (max-width: 767px) {
@@ -196,7 +222,7 @@ body {
     }
     .modal-content {
         width: 90%;
-        margin: 35% auto;
+        margin: 30% auto;
         padding: 15px;
     }
     #ideaInput {
@@ -206,5 +232,8 @@ body {
         font-size: 16px;
         padding: 10px 20px;
     }
+    .clear-icon {
+        right: -10px;
+        font-size: 24px;
 }
 

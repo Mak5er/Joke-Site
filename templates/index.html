@@ -41,37 +41,40 @@
         </div>
     </div>
     <div id="myModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <h2>Ваша ідея або анекдот:</h2>
-        <div class="input-container">
-            <textarea autofocus maxlength="3000" id="ideaInput" rows="4"
-                      placeholder="Напишіть вашу ідею або анекдот..."></textarea>
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Ваша ідея або анекдот:</h2>
+            <div class="input-container">
+                <textarea id="ideaInput" rows="4" placeholder="Напишіть вашу ідею або анекдот..."></textarea>
+                <span class="clear-icon" onclick="clearTextarea()">&times;</span>
+            </div>
+            <div class="button-container">
+                <button class="modal-button cancel-button" onclick="closeModal()">Скасувати</button>
+                <button class="modal-button" onclick="sendIdea()">Відправити</button>
+            </div>
         </div>
-        <button onclick="sendIdea()" class="modal-button">Відправити</button>
     </div>
-</div>
 </div>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     var lastClickTime = 0;
-$(document).ready(function() {
-    $(".random-button").click(function() {
-        var currentTime = new Date().getTime();
-        if (currentTime - lastClickTime >= 1000) { // Перевірка, чи пройшов 1 секунд після останнього натискання
-            lastClickTime = currentTime; // Оновлюємо час останнього натискання
-            $.ajax({
-                type: "POST",
-                url: "/get_random_joke",
-                success: function(data) {
-                    $(".joke-container").html(data);
-                }
-            });
-        }
+    $(document).ready(function() {
+        $(".random-button").click(function() {
+            var currentTime = new Date().getTime();
+            if (currentTime - lastClickTime >= 1000) { // Перевірка, чи пройшов 1 секунд після останнього натискання
+                lastClickTime = currentTime; // Оновлюємо час останнього натискання
+                $.ajax({
+                    type: "POST",
+                    url: "/get_random_joke",
+                    success: function(data) {
+                        $(".joke-container").html(data);
+                    }
+                });
+            }
+        });
     });
-});
 </script>
 <script>
     // Відкриття модального вікна
@@ -105,6 +108,12 @@ $(document).ready(function() {
           }
         ideaInput.value = "";
         }
+    // Очищення поля ідеї
+    function clearTextarea() {
+    var ideaInput = document.getElementById("ideaInput");
+    ideaInput.value = "";
+    }
+
 
 </script>
 
