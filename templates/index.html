@@ -9,115 +9,10 @@
     <meta name="keywords"
           content="анекдоти, гумор, рандом, сайт анекдотів, рандомний анекдот, анекдот дня, анекдоти, україна, анекдоти по українськи, fytrljnb erhf]ycmrj., fytrljnb, cvs[, cvsiys erhf]ycmrs fytrljnb, ">
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Анекдоти</title>
     <style>
-        /* Спільні стилі для всіх розмірів екрану */
-        body {
-            background-color: {{ background_color }};
-            color: white;
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            text-align: center;
-            margin-top: 100px;
-        }
-        .header {
-            font-size: 20px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .ukrainian-word {
-            background: linear-gradient(135deg, #015bbb, #fed500);
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .qr-container {
-            font-size: 20px;
-            text-align: center;
-            margin-top: 20px;
-        }
-        .joke-container {
-            display: inline-block;
-            text-align: left;
-            padding: 30px;
-            border: 2px solid {{ primary_color }};
-            border-radius: 10px;
-            word-wrap: break-word;
-            font-size: 20px;
-            max-width: 50%;
-        }
-        .random-button {
-            display: block;
-            margin: 20px auto;
-            background-color: {{ primary_color }};
-            color: {{ background_color }};
-            border: none;
-            padding: 15px 30px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
-        }
-        .qr-code {
-            border-radius: 24px;
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            height: 100%;
-            max-height: 400px;
-        }
-        .telegram-link {
-            color: #3bd671;
-            text-decoration: none;
-        }
-        .scan-notice {
-            font-size: 20px;
-            color: gray;
-            margin-top: 10px;
-        }
 
-        .contact-us {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 20px;
-            color: white;
-        }
-
-        .contact-link {
-            color: #3bd671;
-        }
-
-
-        @media screen and (max-width: 767px) {
-            .container {
-                margin-top: 15px;
-             }
-            .joke-container {
-                font-size: 20px;
-                max-width: 100%;
-            }
-            .random-button {
-                font-size: 16px;
-                padding: 15px 30px;
-            }
-            .qr-container {
-                font-size: 20px;
-            }
-            .header {
-                font-size: 24px;
-                margin-top: 15px;
-            }
-            .qr-code {
-                width: 95%;
-                max-width: 400px;
-                height: 95%;
-                max-height: 400px;
-                 }
-            .scan-notice {
-                font-size: 20px;
-            }
-        }
-
-        }
     </style>
 
 
@@ -132,18 +27,29 @@
     </div>
     <button class="random-button">Новий анекдот</button>
     <div class="qr-container">
-        <h2>Бажаєте більше анекдотів?<br> Тоді <a class="telegram-link"
-                                                  href="https://t.me/makser_humor_bot?start=start" target="_blank">переходьте
-            до
-            телеграм бота</a>!</h2>
+        <h2>Бажаєте більше анекдотів?<br>
+            Тоді <a class="telegram-link" href="https://t.me/makser_humor_bot?start=start" target="_blank">переходьте до
+                телеграм бота</a>!</h2>
         <p class="scan-notice">Проскануйте або натисніть на QR-код</p>
         <a href="https://t.me/makser_humor_bot?start=start" target="_blank"><img class="qr-code"
                                                                                  src="{{ url_for('static', filename='qr-code.webp') }}"
                                                                                  alt="QR Code"></a>
         <div class="contact-us">
-            <p>Знайшли помилку чи маєте ідеї? <br><a class="contact-link" href="https://t.me/makser_humor_bot?start=bug"
-                                                     target="_blank">Зв'язатися з нами.</a></p>
+            <p>Знайшли помилку чи маєте ідеї? <br><br>
+                <button class="contact-link" onclick="openModal()">Зв'язатися з нами</button>
+            </p>
         </div>
+    </div>
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Ваша ідея або анекдот:</h2>
+        <div class="input-container">
+            <textarea autofocus maxlength="3000" id="ideaInput" rows="4"
+                      placeholder="Напишіть вашу ідею або анекдот..."></textarea>
+        </div>
+        <button onclick="sendIdea()" class="modal-button">Відправити</button>
     </div>
 </div>
 </body>
@@ -166,4 +72,39 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+    // Відкриття модального вікна
+    function openModal() {
+      var modal = document.getElementById('myModal');
+      modal.style.display = 'block';
+    }
+
+    // Закриття модального вікна
+    function closeModal() {
+        var modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+        var ideaInput = document.getElementById("ideaInput");
+        modal.style.display = "none";
+        ideaInput.value = "";
+    }
+
+    // Відправка ідеї
+    function sendIdea() {
+        var ideaInput = document.getElementById("ideaInput");
+        var idea = ideaInput.value;
+        if (idea) {
+            $.ajax({
+              type: 'POST',
+              url: '/send_idea',
+              data: { idea: idea },
+              success: function (response) {
+                closeModal(); // Закрити модальне вікно після відправки
+              },
+            });
+          }
+        ideaInput.value = "";
+        }
+
+</script>
+
 </html>

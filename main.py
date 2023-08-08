@@ -1,14 +1,22 @@
+import os
 import random
 import sqlite3
 import time
+from dotenv import load_dotenv
 
-from flask import Flask, render_template, jsonify
+import requests
+from flask import Flask, render_template, jsonify, request
+
 
 app = Flask(__name__)
 
+load_dotenv()
+
+bot_api_url = os.getenv("bot_api_url")
+chat_id = os.getenv("chat_id")
+
 # Конфігурація основних кольорів
-primary_color = "#3bd671"
-background_color = "#212937"
+
 
 
 # Функція для отримання рандомного анекдоту з бази даних
@@ -28,23 +36,31 @@ def get_random_joke():
 @app.route('/', methods=['GET', 'POST'])
 def index():
     random_joke = get_random_joke()
-    return render_template('index.html', random_joke=random_joke, primary_color=primary_color,
-                           background_color=background_color)
+    return render_template('index.html', random_joke=random_joke)
 
 
 last_request_time = 0
+
 
 @app.route('/get_random_joke', methods=['POST'])
 def get_random_joke_ajax():
     global last_request_time
     current_time = time.time()
 
-    if current_time - last_request_time >= 1: # Перевірка, чи пройшла 1 секунда з останнього запиту
-        last_request_time = current_time # Оновлюємо час останнього запиту
+    if current_time - last_request_time >= 1:  # Перевірка, чи пройшла 1 секунда з останнього запиту
+        last_request_time = current_time  # Оновлюємо час останнього запиту
         random_joke = get_random_joke()
         return jsonify(random_joke)
     else:
         pass
+
+
+@app.route('/send_idea', methods=['POST'])
+def send_idea():
+    idea = request.form['idea']
+    message = f'/sendMessage?chat_id={chat_id}&text=*Нова ідея*: \n`{idea}`&parse_mode=Markdown'
+    requests.get(bot_api_url + message)
+    return 'Idea sent!'
 
 
 if __name__ == '__main__':
