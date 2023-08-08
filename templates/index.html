@@ -26,6 +26,11 @@
             text-align: center;
             margin-top: 20px;
         }
+        .ukrainian-word {
+            background: linear-gradient(135deg, #005BBF, #FFD100);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
         .qr-container {
             font-size: 20px;
             text-align: center;
@@ -101,7 +106,7 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>Анекдоти українською</h1>
+        <h1>Анекдоти <span class="ukrainian-word">українською</span></h1>
     </div>
     <div class="joke-container">
         {{ random_joke | replace('\n', '<br>') | safe }}
