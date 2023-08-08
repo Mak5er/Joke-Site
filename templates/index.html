@@ -74,6 +74,18 @@
             margin-top: 10px;
         }
 
+        .contact-us {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 20px;
+            color: white;
+        }
+
+        .contact-link {
+            color: #3bd671;
+        }
+
+
         @media screen and (max-width: 767px) {
             .container {
                 text-align: center;
@@ -127,6 +139,11 @@
         <a href="https://t.me/makser_humor_bot?start=start" target="_blank"><img class="qr-code"
                                                                                  src="{{ url_for('static', filename='qr-code.webp') }}"
                                                                                  alt="QR Code"></a>
+        <!-- Доданий блок для зв'язку з користувачами -->
+        <div class="contact-us">
+            <p>Знайшли помилку чи маєте ідеї? <a class="contact-link" href="https://t.me/makser_humor_bot?start=bug"
+                                                 target="_blank">Зв'язатися з нами.</a></p>
+        </div>
     </div>
 </div>
 </body>
