@@ -197,6 +197,7 @@ body {
     .modal-content {
         width: 90%;
         margin: 35% auto;
+        padding: 15px;
     }
     #ideaInput {
         width: 100%;
