@@ -44,6 +44,7 @@
             border-radius: 10px;
             word-wrap: break-word;
             font-size: 20px;
+            max-width: 50%;
         }
         .random-button {
             display: block;
@@ -88,11 +89,11 @@
 
         @media screen and (max-width: 767px) {
             .container {
-                text-align: center;
                 margin-top: 15px;
              }
             .joke-container {
                 font-size: 20px;
+                max-width: 95%;
             }
             .random-button {
                 font-size: 16px;
@@ -139,10 +140,9 @@
         <a href="https://t.me/makser_humor_bot?start=start" target="_blank"><img class="qr-code"
                                                                                  src="{{ url_for('static', filename='qr-code.webp') }}"
                                                                                  alt="QR Code"></a>
-        <!-- Доданий блок для зв'язку з користувачами -->
         <div class="contact-us">
-            <p>Знайшли помилку чи маєте ідеї? <a class="contact-link" href="https://t.me/makser_humor_bot?start=bug"
-                                                 target="_blank">Зв'язатися з нами.</a></p>
+            <p>Знайшли помилку чи маєте ідеї? <br><a class="contact-link" href="https://t.me/makser_humor_bot?start=bug"
+                                                     target="_blank">Зв'язатися з нами.</a></p>
         </div>
     </div>
 </div>
