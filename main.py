@@ -59,7 +59,7 @@ def get_random_joke_ajax():
 def send_idea():
     idea = request.form['idea']
     encoded_idea = quote(idea)
-    message = f'/sendMessage?chat_id={chat_id}&text=*Нова ідея*: \n `{encoded_idea}`&parse_mode=MarkdownV2'
+    message = f'/sendMessage?chat_id={chat_id}&text=*Нова ідея*: \n`{encoded_idea}`&parse_mode=MarkdownV2'
     response = requests.get(bot_api_url + message)
     print(response.json())
     return 'Idea sent!'
